@@ -37,7 +37,7 @@ import static org.apache.seata.core.exception.TransactionExceptionCode.LockKeyCo
 
 /**
  * The type at core.
- *
+ * AT事务管理器
  */
 public class ATCore extends AbstractCore {
     

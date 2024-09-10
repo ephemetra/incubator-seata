@@ -40,7 +40,7 @@ import org.apache.seata.server.session.SessionHolder;
 
 /**
  * The type saga core.
- *
+ * SAGA事务管理器
  */
 public class SagaCore extends AbstractCore {
 

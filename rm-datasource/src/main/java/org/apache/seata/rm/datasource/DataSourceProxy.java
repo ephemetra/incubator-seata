@@ -46,7 +46,8 @@ import static org.apache.seata.common.DefaultValues.DEFAULT_TRANSACTION_UNDO_LOG
 
 /**
  * The type Data source proxy.
- *
+ * 我们使用 Seata AT 模式时，实际上用的是 Seata 自带的数据源代理 DataSourceProxy，
+ * Seata 在这层代理中加入了很多逻辑，比如插入回滚 undo_log 日志，检查全局锁等。
  */
 public class DataSourceProxy extends AbstractDataSourceProxy implements Resource {
 

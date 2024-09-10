@@ -22,7 +22,7 @@ import org.apache.seata.tm.api.transaction.SuspendedResourcesHolder;
 
 /**
  * Global transaction.
- *
+ * 全局事务：包括开启事务、提交、回滚、获取当前状态等方法。
  */
 public interface GlobalTransaction extends BaseTransaction {
 

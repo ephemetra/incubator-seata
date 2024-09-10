@@ -20,7 +20,7 @@ import org.apache.seata.core.exception.TransactionException;
 
 /**
  * Transaction Manager.
- *
+ * 事务管理器
  * Define a global transaction and control it.
  *
  */

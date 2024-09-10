@@ -22,7 +22,7 @@ import org.apache.seata.server.coordinator.AbstractCore;
 
 /**
  * The type tcc core.
- *
+ * TCC事务管理器
  */
 public class TccCore extends AbstractCore {
 

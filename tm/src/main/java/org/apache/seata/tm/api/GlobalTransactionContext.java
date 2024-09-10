@@ -22,7 +22,7 @@ import org.apache.seata.core.model.GlobalStatus;
 
 /**
  * GlobalTransaction API
- *
+ * 全局事务的上下文
  */
 public class GlobalTransactionContext {
 

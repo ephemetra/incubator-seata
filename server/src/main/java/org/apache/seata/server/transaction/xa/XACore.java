@@ -24,7 +24,7 @@ import org.apache.seata.server.coordinator.AbstractCore;
 
 /**
  * The type XA core.
- *
+ * XA事务管理器
  */
 public class XACore extends AbstractCore {
 
