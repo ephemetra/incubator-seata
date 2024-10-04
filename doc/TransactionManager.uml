@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.seata.core.model.TransactionManager</OriginalElement>
+  <nodes>
+    <node x="356.0" y="54.0">org.apache.seata.tm.DefaultTransactionManager</node>
+    <node x="1022.25" y="190.0">org.apache.seata.server.coordinator.DefaultCore</node>
+    <node x="454.75" y="258.0">org.apache.seata.server.transaction.tcc.TccCore</node>
+    <node x="766.5" y="122.0">org.apache.seata.server.coordinator.Core</node>
+    <node x="927.75" y="258.0">org.apache.seata.server.transaction.at.ATCore</node>
+    <node x="611.75" y="258.0">org.apache.seata.server.transaction.xa.XACore</node>
+    <node x="662.0" y="54.0">org.apache.seata.server.coordinator.TransactionCoordinatorInbound</node>
+    <node x="668.75" y="190.0">org.apache.seata.server.coordinator.AbstractCore</node>
+    <node x="760.75" y="258.0">org.apache.seata.server.transaction.saga.SagaCore</node>
+    <node x="656.125" y="-14.0">org.apache.seata.core.model.TransactionManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.seata.server.coordinator.AbstractCore" target="org.apache.seata.server.coordinator.Core" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="745.75" y="170.0" />
+      <point x="810.5" y="170.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.transaction.at.ATCore" target="org.apache.seata.server.coordinator.AbstractCore" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="982.25" y="238.0" />
+      <point x="745.75" y="238.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.transaction.xa.XACore" target="org.apache.seata.server.coordinator.AbstractCore" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="666.25" y="238.0" />
+      <point x="745.75" y="238.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.transaction.tcc.TccCore" target="org.apache.seata.server.coordinator.AbstractCore" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="513.25" y="238.0" />
+      <point x="745.75" y="238.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.coordinator.DefaultCore" target="org.apache.seata.server.coordinator.Core" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="1094.25" y="170.0" />
+      <point x="810.5" y="170.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.tm.DefaultTransactionManager" target="org.apache.seata.core.model.TransactionManager" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="489.0" y="34.0" />
+      <point x="761.125" y="34.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.coordinator.TransactionCoordinatorInbound" target="org.apache.seata.core.model.TransactionManager" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="810.5" y="34.0" />
+      <point x="761.125" y="34.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.transaction.saga.SagaCore" target="org.apache.seata.server.coordinator.AbstractCore" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="824.25" y="238.0" />
+      <point x="745.75" y="238.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.apache.seata.server.coordinator.Core" target="org.apache.seata.server.coordinator.TransactionCoordinatorInbound" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Generic" zoom="1.0" showDependencies="false" x="761.5" y="136.00000000000006" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
