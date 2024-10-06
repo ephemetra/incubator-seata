@@ -51,7 +51,7 @@ public class TransactionalTemplate {
      * @throws TransactionalExecutor.ExecutionException the execution exception
      */
     public Object execute(TransactionalExecutor business) throws Throwable {
-        // 1. Get transactionInfo
+        // <1> 获取transactionInfo信息
         TransactionInfo txInfo = business.getTransactionInfo();
         if (txInfo == null) {
             throw new ShouldNeverHappenException("transactionInfo does not exist");
@@ -119,8 +119,8 @@ public class TransactionalTemplate {
             }
 
             try {
-                // 2. If the tx role is 'GlobalTransactionRole.Launcher', send the request of beginTransaction to TC,
-                //    else do nothing. Of course, the hooks will still be triggered.
+                // <2> 开启事务
+                // 若是GlobalTransactionRole.Launche则向TC请求xid,反之则什么都不做.当然钩子方法依然会被触发
                 beginTransaction(txInfo, tx);
 
                 Object rs;
@@ -128,17 +128,17 @@ public class TransactionalTemplate {
                     // Do Your Business
                     rs = business.execute();
                 } catch (Throwable ex) {
-                    // 3. The needed business exception to rollback.
+                    // <3> 针对业务异常进行回滚
                     completeTransactionAfterThrowing(txInfo, tx, ex);
                     throw ex;
                 }
 
-                // 4. everything is fine, commit.
+                // <4> 正常 commit
                 commitTransaction(tx, txInfo);
 
                 return rs;
             } finally {
-                //5. clear
+                // <5> 清理上下文
                 resumeGlobalLockConfig(previousConfig);
                 triggerAfterCompletion(tx);
                 cleanUp();
