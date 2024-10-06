@@ -34,7 +34,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Template of executing business logic with a global transaction.
- *
+ * 事务化模板：通过上述 GlobalTransaction 和 GlobalTransactionContext API
+ * 把一个业务服务的调用包装成带有分布式事务支持的服务。
  * @author sharajava
  */
 public class TransactionalTemplate {

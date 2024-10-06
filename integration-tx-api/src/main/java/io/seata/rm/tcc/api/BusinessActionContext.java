@@ -26,6 +26,7 @@ import io.seata.integration.tx.api.interceptor.ActionContextUtil;
 
 /**
  * The type Business action context.
+ * 业务操作时的上下文
  */
 public class BusinessActionContext implements Serializable {
 

@@ -21,7 +21,7 @@ import io.seata.core.model.GlobalStatus;
 
 /**
  * GlobalTransaction API
- *
+ * 全局事务的上下文
  * @author sharajava
  */
 public class GlobalTransactionContext {
