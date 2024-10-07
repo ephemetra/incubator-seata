@@ -27,7 +27,7 @@ import io.seata.tm.api.transaction.SuspendedResourcesHolder;
 public interface GlobalTransaction {
 
     /**
-     * Begin a new global transaction with default timeout and name.
+     * 使用默认超时和名称开始一个新的全局事务。
      *
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
      * out.
@@ -35,7 +35,7 @@ public interface GlobalTransaction {
     void begin() throws TransactionException;
 
     /**
-     * Begin a new global transaction with given timeout and default name.
+     * 使用给定超时和默认名称开始新的全局事务。
      *
      * @param timeout Global transaction timeout in MILLISECONDS
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
@@ -44,7 +44,7 @@ public interface GlobalTransaction {
     void begin(int timeout) throws TransactionException;
 
     /**
-     * Begin a new global transaction with given timeout and given name.
+     * 使用给定超时和给定名称开始一个新的全局事务。
      *
      * @param timeout Given timeout in MILLISECONDS.
      * @param name    Given name.
@@ -54,7 +54,7 @@ public interface GlobalTransaction {
     void begin(int timeout, String name) throws TransactionException;
 
     /**
-     * Commit the global transaction.
+     * 提交全局事务。
      *
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
      * out.
@@ -62,7 +62,7 @@ public interface GlobalTransaction {
     void commit() throws TransactionException;
 
     /**
-     * Rollback the global transaction.
+     * 回滚全局事务。
      *
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
      * out.
@@ -70,7 +70,7 @@ public interface GlobalTransaction {
     void rollback() throws TransactionException;
 
     /**
-     * Suspend the global transaction.
+     * 挂起全局事务。
      *
      * @return the SuspendedResourcesHolder which holds the suspend resources
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
@@ -79,9 +79,9 @@ public interface GlobalTransaction {
     SuspendedResourcesHolder suspend() throws TransactionException;
 
     /**
-     * Suspend the global transaction.
+     * 挂起全局事务。
      *
-     * @param clean the clean if true, clean the transaction context. otherwise,supend only
+     * @param clean 如果为true，则清空事务上下文。否则，只挂起
      * @return the SuspendedResourcesHolder which holds the suspend resources
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
      * @see SuspendedResourcesHolder
@@ -89,9 +89,9 @@ public interface GlobalTransaction {
     SuspendedResourcesHolder suspend(boolean clean) throws TransactionException;
 
     /**
-     * Resume the global transaction.
+     * 恢复全局事务。
      *
-     * @param suspendedResourcesHolder the suspended resources to resume
+     * @param suspendedResourcesHolder 将被恢复的挂起资源上下文
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
      * out.
      * @see SuspendedResourcesHolder
@@ -99,7 +99,7 @@ public interface GlobalTransaction {
     void resume(SuspendedResourcesHolder suspendedResourcesHolder) throws TransactionException;
 
     /**
-     * Ask TC for current status of the corresponding global transaction.
+     * 向TC询问相应全局事务的当前状态。
      *
      * @return Status of the corresponding global transaction.
      * @throws TransactionException Any exception that fails this will be wrapped with TransactionException and thrown
@@ -109,14 +109,14 @@ public interface GlobalTransaction {
     GlobalStatus getStatus() throws TransactionException;
 
     /**
-     * Get XID.
+     * 获取 XID.
      *
      * @return XID. xid
      */
     String getXid();
 
     /**
-     * report the global transaction status.
+     * 报告全局事务状态。
      *
      * @param globalStatus global status.
      *
@@ -126,7 +126,7 @@ public interface GlobalTransaction {
     void globalReport(GlobalStatus globalStatus) throws TransactionException;
 
     /**
-     * local status of the global transaction.
+     * 获取全局事务的本地状态。
      *
      * @return Status of the corresponding global transaction.
      * @see GlobalStatus
@@ -134,7 +134,7 @@ public interface GlobalTransaction {
     GlobalStatus getLocalStatus();
 
     /**
-     * get global transaction role.
+     * 获取全局事务角色。
      *
      * @return global transaction Role.
      * @see GlobalTransactionRole
@@ -142,7 +142,7 @@ public interface GlobalTransaction {
     GlobalTransactionRole getGlobalTransactionRole();
 
     /**
-     * get create time
+     * 获取创建时间
      *
      * @return create time
      */

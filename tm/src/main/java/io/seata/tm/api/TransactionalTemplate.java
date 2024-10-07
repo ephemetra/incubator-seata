@@ -56,7 +56,7 @@ public class TransactionalTemplate {
         if (txInfo == null) {
             throw new ShouldNeverHappenException("transactionInfo does not exist");
         }
-        // 1.1 Get current transaction, if not null, the tx role is 'GlobalTransactionRole.Participant'.
+        // 1.1 获取当前事务，如果不为空，则当前角色是事务参与者 GlobalTransactionRole.Participant。
         GlobalTransaction tx = GlobalTransactionContext.getCurrent();
 
         // 1.2 Handle the transaction propagation.
@@ -113,7 +113,7 @@ public class TransactionalTemplate {
 
             // set current tx config to holder
             GlobalLockConfig previousConfig = replaceGlobalLockConfig(txInfo);
-            
+
             if (tx.getGlobalTransactionRole() == GlobalTransactionRole.Participant) {
                 LOGGER.info("join into a existing global transaction,xid={}", tx.getXid());
             }
@@ -297,6 +297,7 @@ public class TransactionalTemplate {
     }
 
     private void beginTransaction(TransactionInfo txInfo, GlobalTransaction tx) throws TransactionalExecutor.ExecutionException {
+        // 若当前角色不是事务发起者，直接return
         if (tx.getGlobalTransactionRole() != GlobalTransactionRole.Launcher) {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Ignore begin: just involved in global transaction [{}]", tx.getXid());
@@ -304,6 +305,7 @@ public class TransactionalTemplate {
             return;
         }
         try {
+            // 钩子函数，开启事务
             triggerBeforeBegin();
             tx.begin(txInfo.getTimeOut(), txInfo.getName());
             triggerAfterBegin();
