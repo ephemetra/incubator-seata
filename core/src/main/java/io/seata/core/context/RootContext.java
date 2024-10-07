@@ -33,7 +33,7 @@ import static io.seata.core.model.BranchType.XA;
 
 /**
  * The type Root context.
- * 事务的根上下文：负责在应用的运行时，维护 XID 。
+ * 事务的根上下文：维护 XID、全局锁状态等。
  * @author slievrly
  */
 public class RootContext {

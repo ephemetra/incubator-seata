@@ -66,7 +66,7 @@ import static io.seata.common.DefaultValues.DEFAULT_TM_DEGRADE_CHECK_PERIOD;
 import static io.seata.tm.api.GlobalTransactionRole.Participant;
 
 /**
- * The type Global transactional interceptor handler.
+ * 全局事务的拦截处理器
  *
  * @author slievrly
  * @author leezongjie
@@ -146,10 +146,15 @@ public class GlobalTransactionalInterceptorHandler extends AbstractProxyInvocati
         if (specificMethod != null && !specificMethod.getDeclaringClass().equals(Object.class)) {
             final GlobalTransactional globalTransactionalAnnotation = getAnnotation(specificMethod, targetClass, GlobalTransactional.class);
             final GlobalLock globalLockAnnotation = getAnnotation(specificMethod, targetClass, GlobalLock.class);
+            // disable 是 service.disableGlobalTransaction 配置项
+            // degradeCheckAllowTimes 是 tm.degradeCheckAllowTimes 配置项，标识客户端降级检测的允许次数
             boolean localDisable = disable || (ATOMIC_DEGRADE_CHECK.get() && degradeNum >= degradeCheckAllowTimes);
+            // 若当前服务未被禁用或降级
             if (!localDisable) {
+                // 先确保能获取到事务参数
                 if (globalTransactionalAnnotation != null || this.aspectTransactional != null) {
                     AspectTransactional transactional;
+                    // 若存在 @GlobalTransactional 注解，则通过注解属性来构造 AspectTransactional
                     if (globalTransactionalAnnotation != null) {
                         transactional = new AspectTransactional(globalTransactionalAnnotation.timeoutMills(),
                                 globalTransactionalAnnotation.name(), globalTransactionalAnnotation.rollbackFor(),
@@ -160,11 +165,15 @@ public class GlobalTransactionalInterceptorHandler extends AbstractProxyInvocati
                                 globalTransactionalAnnotation.lockRetryInterval(),
                                 globalTransactionalAnnotation.lockRetryTimes(),
                                 globalTransactionalAnnotation.lockStrategyMode());
-                    } else {
+                    }
+                    // 若构造此类时传递了 aspectTransactional 注解，则直接使用
+                    else {
                         transactional = this.aspectTransactional;
                     }
                     return handleGlobalTransaction(invocation, transactional);
-                } else if (globalLockAnnotation != null) {
+                }
+                // 若存在 @GlobalLock 注解，则只是全局锁
+                else if (globalLockAnnotation != null) {
                     return handleGlobalLock(invocation, globalLockAnnotation);
                 }
             }
@@ -324,7 +333,7 @@ public class GlobalTransactionalInterceptorHandler extends AbstractProxyInvocati
     }
 
     /**
-     * stop auto degrade
+     * 关闭用于检测服务降级的定时任务线程池
      */
     private static void stopDegradeCheck() {
         if (!ATOMIC_DEGRADE_CHECK.compareAndSet(true, false)) {
@@ -336,12 +345,14 @@ public class GlobalTransactionalInterceptorHandler extends AbstractProxyInvocati
     }
 
     /**
-     * auto upgrade service detection
+     * 开启用于检测服务降级的定时任务线程池
      */
     private static void startDegradeCheck() {
+        // 尝试打开线程池的开关标记
         if (!ATOMIC_DEGRADE_CHECK.compareAndSet(false, true)) {
             return;
         }
+        // 若已有线程池实例
         if (executor != null && !executor.isShutdown()) {
             return;
         }
@@ -349,8 +360,10 @@ public class GlobalTransactionalInterceptorHandler extends AbstractProxyInvocati
         executor.scheduleAtFixedRate(() -> {
             if (ATOMIC_DEGRADE_CHECK.get()) {
                 try {
+                    // 尝试开启一个事务，从TC获取xid
                     String xid = TransactionManagerHolder.get().begin(null, null, "degradeCheck", 60000);
                     TransactionManagerHolder.get().commit(xid);
+                    // 发布降级检测的事件
                     EVENT_BUS.post(new DegradeCheckEvent(true));
                 } catch (Exception e) {
                     EVENT_BUS.post(new DegradeCheckEvent(false));
